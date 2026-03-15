@@ -86,7 +86,7 @@ Compose file lives at `/mnt/media/appdata/docker-compose.yml`.
 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=ilkecabral&show_icons=true&theme=radical&bg_color=1a1a2e&title_color=e94560&icon_color=e94560&text_color=d0d0e0&border_color=16213e&hide_border=false)
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=radical&bg_color=1a1a2e&title_color=e94560&text_color=d0d0e0&border_color=16213e)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=ilkecabral&layout=compact&theme=radical&bg_color=1a1a2e&title_color=e94560&text_color=d0d0e0&border_color=16213e)
 
 </div>
 
