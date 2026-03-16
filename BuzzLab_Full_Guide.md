@@ -282,63 +282,7 @@ ssh -oHostKeyAlgorithms=+ssh-rsa,ssh-dss msfadmin@192.168.0.103
 
 ---
 
-## Part 4 — Remote Access with Tailscale
 
-Tailscale is a VPN that connects devices securely over the internet without port forwarding.
-
----
-
-### Step 08 — Install Tailscale
-
-#### Enable TUN device in LXC config (from Proxmox host)
-
-```bash
-# For mediaserver
-echo "lxc.cgroup2.devices.allow: c 10:200 rwm" >> /etc/pve/lxc/100.conf
-echo "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file" >> /etc/pve/lxc/100.conf
-pct reboot 100
-
-# For Wazuh LXC
-echo "lxc.cgroup2.devices.allow: c 10:200 rwm" >> /etc/pve/lxc/101.conf
-echo "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file" >> /etc/pve/lxc/101.conf
-pct reboot 101
-```
-
-#### Install on each machine
-
-```bash
-curl -fsSL https://tailscale.com/install.sh | sh
-systemctl start tailscaled
-tailscale up   # opens auth URL — log in with Tailscale account
-```
-
-#### DNS fix for Wazuh LXC (no internet issue)
-
-```bash
-echo "nameserver 8.8.8.8" >> /etc/resolv.conf
-```
-
-#### Remote Access URLs
-
-| Service | Local IP | Tailscale Access |
-|---------|----------|-----------------|
-| Proxmox Web UI | 192.168.0.200:8006 | https://<proxmox-ts-ip>:8006 |
-| Jellyfin | 192.168.0.101:8096 | http://<mediaserver-ts-ip>:8096 |
-| Wazuh Dashboard | 192.168.0.102 | https://<wazuh-ts-ip> |
-
----
-
-## Part 5 — Network Map
-
-| Host | IP | Type | Role |
-|------|----|------|------|
-| Proxmox Host | 192.168.0.200 | Bare Metal | Hypervisor |
-| mediaserver (ID: 100) | 192.168.0.101 | LXC | Docker media stack + Wazuh agent |
-| wazuh (ID: 101) | 192.168.0.102 | LXC | SIEM — security monitoring |
-| target (ID: 102) | 192.168.0.103 | VM | Metasploitable 2 — attack target |
-| Router | 192.168.0.1 | Hardware | Gateway |
-
----
 
 ## Part 6 — Next Steps
 
